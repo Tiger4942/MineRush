@@ -37,7 +37,7 @@ public class GameActivity extends Activity {
         timer = new CountDownTimer(10000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                time.setText("Remaining: " + millisUntilFinished / 1000 + "");
+                time.setText("Remaining: " + millisUntilFinished / 1000);
             }
 
             @Override
