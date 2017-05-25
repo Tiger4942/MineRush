@@ -1,13 +1,9 @@
 package de.qatos.minerush;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.media.Image;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -32,8 +28,8 @@ public class GameActivity extends Activity {
     private TextView time, test;
     private RelativeLayout layout;
 
-    private ImageView mineV, lootV, fightV, gatherV;
-    private ImageView oreV, chestV, monsterV, plantV;
+    private ImageView pImageV;
+    private ImageView eImageV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +63,6 @@ public class GameActivity extends Activity {
         enemyImgX = WIDTH / 2 + WIDTH / 5;
 
         imageLoad();
-        imageHide();
 
         Random enemy = new Random(); // Enemy Index Random
         eIndex = enemy.nextInt(4 - 0) + 0;
@@ -85,6 +80,8 @@ public class GameActivity extends Activity {
                     pIndex = 0;
                 }
 
+                test.setText("INDEX: " + pIndex);
+
                 switchPIndex();
             }
         });
@@ -101,7 +98,7 @@ public class GameActivity extends Activity {
             @Override
             public void onFinish() {
                 if(pIndex == eIndex) {
-                    test.setText("RICHTIG!");
+                    //test.setText("RICHTIG!");
 
                     Random nEnemy = new Random();
                     eIndex = nEnemy.nextInt(4 - 0) + 0;
@@ -110,7 +107,7 @@ public class GameActivity extends Activity {
 
                     timer.start();
                 }else{
-                    test.setText("FALSCH!");
+                    //test.setText("FALSCH!");
 
                     Random nEnemy = new Random();
                     eIndex = nEnemy.nextInt(4 - 0) + 0;
@@ -126,124 +123,59 @@ public class GameActivity extends Activity {
 
     private void imageLoad() {
 
-        mineV = new ImageView(this);
-        mineV.setImageResource(R.drawable.mine);
-        mineV.setX(playerImgX);
-        mineV.setY(playerImgY);
+        pImageV = new ImageView(this);
+        pImageV.setImageResource(R.drawable.mine);
+        pImageV.setX(playerImgX);
+        pImageV.setY(playerImgY);
 
-        lootV = new ImageView(this);
-        lootV.setImageResource(R.drawable.loot);
-        lootV.setX(playerImgX);
-        lootV.setY(playerImgY);
+        eImageV = new ImageView(this);
+        eImageV.setImageResource(R.drawable.ore);
+        eImageV.setX(enemyImgX);
+        eImageV.setY(enemyImgY);
 
-        fightV = new ImageView(this);
-        fightV.setImageResource(R.drawable.fight);
-        fightV.setX(playerImgX);
-        fightV.setY(playerImgY);
-
-        gatherV = new ImageView(this);
-        gatherV.setImageResource(R.drawable.gather);
-        gatherV.setX(playerImgX);
-        gatherV.setY(playerImgY);
-
-        oreV = new ImageView(this);
-        oreV.setImageResource(R.drawable.ore);
-        oreV.setX(enemyImgX);
-        oreV.setY(enemyImgY);
-
-        chestV = new ImageView(this);
-        chestV.setImageResource(R.drawable.chest);
-        chestV.setX(enemyImgX);
-        chestV.setY(enemyImgY);
-
-        monsterV = new ImageView(this);
-        monsterV.setImageResource(R.drawable.monster);
-        monsterV.setX(enemyImgX);
-        monsterV.setY(enemyImgY);
-
-        plantV = new ImageView(this);
-        plantV.setImageResource(R.drawable.plant);
-        plantV.setX(enemyImgX);
-        plantV.setY(enemyImgY);
-
-        layout.addView(mineV);
-        layout.addView(lootV);
-        layout.addView(fightV);
-        layout.addView(gatherV);
-        layout.addView(oreV);
-        layout.addView(chestV);
-        layout.addView(monsterV);
-        layout.addView(plantV);
-    }
-
-    // PLAYER IMAGE HIDE
-    private void pImageHide() {
-        mineV.setVisibility(View.INVISIBLE);
-        lootV.setVisibility(View.INVISIBLE);
-        fightV.setVisibility(View.INVISIBLE);
-        gatherV.setVisibility(View.INVISIBLE);
+        layout.addView(pImageV);
+        layout.addView(eImageV);
 
     }
 
-    // ENEMY IMAGE HIDE
-    private void eImageHide() {
-        oreV.setVisibility(View.INVISIBLE);
-        chestV.setVisibility(View.INVISIBLE);
-        monsterV.setVisibility(View.INVISIBLE);
-        plantV.setVisibility(View.INVISIBLE);
-    }
-
-    private void imageHide() {
-        mineV.setVisibility(View.INVISIBLE);
-        lootV.setVisibility(View.INVISIBLE);
-        fightV.setVisibility(View.INVISIBLE);
-        gatherV.setVisibility(View.INVISIBLE);
-        oreV.setVisibility(View.INVISIBLE);
-        chestV.setVisibility(View.INVISIBLE);
-        monsterV.setVisibility(View.INVISIBLE);
-        plantV.setVisibility(View.INVISIBLE);
-    }
-
+    // switch player Index
     private void switchPIndex() {
         switch (pIndex) {
             case 0:
-                mineV.setVisibility(View.VISIBLE);
+                pImageV.setImageResource(R.drawable.mine);
                 break;
 
             case 1:
-                lootV.setVisibility(View.VISIBLE);
+                pImageV.setImageResource(R.drawable.loot);
                 break;
 
             case 2:
-                fightV.setVisibility(View.VISIBLE);
+                pImageV.setImageResource(R.drawable.fight);
                 break;
 
             case 3:
-                gatherV.setVisibility(View.VISIBLE);
+                pImageV.setImageResource(R.drawable.gather);
                 break;
         }
     }
 
+    // switch enemy Index
     private void switchEIndex() {
         switch(eIndex) {
             case 0:
-                eImageHide();
-                oreV.setVisibility(View.VISIBLE);
+                eImageV.setImageResource(R.drawable.ore);
                 break;
 
             case 1:
-                eImageHide();
-                chestV.setVisibility(View.VISIBLE);
+                eImageV.setImageResource(R.drawable.chest);
                 break;
 
             case 2:
-                eImageHide();
-                monsterV.setVisibility(View.VISIBLE);
+                eImageV.setImageResource(R.drawable.monster);
                 break;
 
             case 3:
-                eImageHide();
-                plantV.setVisibility(View.VISIBLE);
+                eImageV.setImageResource(R.drawable.plant);
                 break;
         }
     }
