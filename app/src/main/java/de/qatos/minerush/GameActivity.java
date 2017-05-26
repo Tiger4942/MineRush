@@ -31,6 +31,9 @@ public class GameActivity extends Activity {
     private ImageView pImageV;
     private ImageView eImageV;
 
+    private long countdownInit = 10000;
+    private long countdownCurrent = 10000;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,34 +94,64 @@ public class GameActivity extends Activity {
         timer = new CountDownTimer(10000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                time.setText("Remaining: " + millisUntilFinished / 1000);
-
+                onTickTimer(millisUntilFinished);
             }
 
             @Override
             public void onFinish() {
-                if(pIndex == eIndex) {
-                    //test.setText("RICHTIG!");
-
-                    Random nEnemy = new Random();
-                    eIndex = nEnemy.nextInt(4 - 0) + 0;
-
-                    switchEIndex();
-
-                    timer.start();
-                }else{
-                    //test.setText("FALSCH!");
-
-                    Random nEnemy = new Random();
-                    eIndex = nEnemy.nextInt(4 - 0) + 0;
-
-                    switchEIndex();
-
-                    timer.start();
-                }
-
+                onFinishTimer();
             }
         }.start();
+    }
+
+    public void onFinishTimer() {
+        if(pIndex == eIndex) {
+            test.setText("INDEX: " + pIndex + " RICHTIG!");
+
+            Random nEnemy = new Random();
+            eIndex = nEnemy.nextInt(4 - 0) + 0;
+
+            switchEIndex();
+            countdownCurrent *= 0.8F;
+            timer = new CountDownTimer(countdownCurrent, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    onTickTimer(millisUntilFinished);
+                }
+
+                @Override
+                public void onFinish() {
+                    onFinishTimer();
+                }
+            };
+            timer.start();
+        }else{
+            test.setText("INDEX: " + pIndex + " FALSCH!");
+
+            Random nEnemy = new Random();
+            eIndex = nEnemy.nextInt(4 - 0) + 0;
+
+            switchEIndex();
+            countdownCurrent = countdownInit;
+            timer = new CountDownTimer(countdownCurrent, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    onTickTimer(millisUntilFinished);
+                }
+
+                @Override
+                public void onFinish() {
+                    onFinishTimer();
+                }
+            };
+            timer.start();
+        }
+
+    }
+
+    public void onTickTimer(long millisUntilFinished) {
+        time.setText("Remaining: " + millisUntilFinished / 1000);
+
     }
 
     private void imageLoad() {
