@@ -1,6 +1,7 @@
 package de.qatos.minerush;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -13,10 +14,15 @@ import android.widget.TextView;
 
 import java.util.Random;
 
+import de.qatos.game.FightGame;
+import de.qatos.game.GatherGame;
+import de.qatos.game.LootGame;
+import de.qatos.game.MineGame;
+
 public class GameActivity extends Activity {
 
-    private int WIDTH = MenuActivity.WIDTH;
-    private int HEIGHT = MenuActivity.HEIGHT;
+    public int WIDTH = MenuActivity.WIDTH;
+    public int HEIGHT = MenuActivity.HEIGHT;
 
     private int playerImgY, playerImgX;
     private int enemyImgY, enemyImgX;
@@ -33,6 +39,13 @@ public class GameActivity extends Activity {
 
     private long countdownInit = 10000;
     private long countdownCurrent = 10000;
+
+    private MineGame mineGame;
+    private LootGame lootGame;
+    private FightGame fightGame;
+    private GatherGame gatherGame;
+
+    private View.OnClickListener layoutClick;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,15 +80,12 @@ public class GameActivity extends Activity {
 
         imageLoad();
 
-        Random enemy = new Random(); // Enemy Index Random
-        eIndex = enemy.nextInt(4 - 0) + 0;
-
         Random player = new Random(); // Player Index Random
         pIndex = player.nextInt(4 - 0) + 0;
 
         switchPIndex();
 
-        layout.setOnClickListener(new View.OnClickListener() {
+        layout.setOnClickListener(layoutClick = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 pIndex++;
@@ -116,64 +126,27 @@ public class GameActivity extends Activity {
             else if(pIndex == 3)
                 gatherRight();
 
-            test.setText("INDEX: " + pIndex + " RICHTIG!");
-
-            Random nEnemy = new Random();
-            eIndex = nEnemy.nextInt(4 - 0) + 0;
-
-            switchEIndex();
-            countdownCurrent *= 0.9F;
-            timer = new CountDownTimer(countdownCurrent, 1000) {
-                @Override
-                public void onTick(long millisUntilFinished) {
-                    onTickTimer(millisUntilFinished);
-                }
-
-                @Override
-                public void onFinish() {
-                    onFinishTimer();
-                }
-            };
-            timer.start();
+            timer.cancel();
         }else{
-            test.setText("INDEX: " + pIndex + " FALSCH!");
-
-            Random nEnemy = new Random();
-            eIndex = nEnemy.nextInt(4 - 0) + 0;
-
-            switchEIndex();
-            countdownCurrent = countdownInit;
-            timer = new CountDownTimer(countdownCurrent, 1000) {
-                @Override
-                public void onTick(long millisUntilFinished) {
-                    onTickTimer(millisUntilFinished);
-                }
-
-                @Override
-                public void onFinish() {
-                    onFinishTimer();
-                }
-            };
-            timer.start();
-
+            timerFalse();
         }
 
     }
 
     private void mineRight() {
-
+        mineGame = new MineGame(this);
     }
 
     private void lootRight() {
-
+        lootGame = new LootGame(this);
     }
 
     private void fightRight() {
-
+        fightGame = new FightGame(this);
     }
 
     private void gatherRight() {
-
+        gatherGame = new GatherGame(this);
     }
 
     public void onTickTimer(long millisUntilFinished) {
@@ -199,7 +172,7 @@ public class GameActivity extends Activity {
     }
 
     // switch player Index
-    private void switchPIndex() {
+    public void switchPIndex() {
         switch (pIndex) {
             case 0:
                 pImageV.setImageResource(R.drawable.mine);
@@ -220,7 +193,8 @@ public class GameActivity extends Activity {
     }
 
     // switch enemy Index
-    private void switchEIndex() {
+    public void switchEIndex() {
+
         switch(eIndex) {
             case 0:
                 eImageV.setImageResource(R.drawable.ore);
@@ -238,5 +212,79 @@ public class GameActivity extends Activity {
                 eImageV.setImageResource(R.drawable.plant);
                 break;
         }
+    }
+
+    public void timerRight()  {
+        test.setText("INDEX: " + pIndex + " RICHTIG!");
+
+        Random nEnemy = new Random();
+        eIndex = nEnemy.nextInt(4 - 0) + 0;
+
+        switchEIndex();
+        timer = new CountDownTimer(countdownCurrent, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                onTickTimer(millisUntilFinished);
+            }
+
+            @Override
+            public void onFinish() {
+                onFinishTimer();
+            }
+        }.start();
+    }
+
+    private void timerFalse() {
+        test.setText("INDEX: " + pIndex + " FALSCH!");
+
+        switchEIndex();
+        countdownCurrent = countdownInit;
+        timer = new CountDownTimer(countdownCurrent, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                onTickTimer(millisUntilFinished);
+            }
+
+            @Override
+            public void onFinish() {
+                onFinishTimer();
+            }
+        }.start();
+    }
+
+    public RelativeLayout getLayout() {
+        return layout;
+    }
+
+    public int getpIndex() {
+        return pIndex;
+    }
+
+    public int geteIndex() {
+        return eIndex;
+    }
+
+    public CountDownTimer getTimer() {
+        return timer;
+    }
+
+    public int getPlayerImgX() {
+        return playerImgX;
+    }
+
+    public int getPlayerImgY() {
+        return playerImgY;
+    }
+
+    public ImageView getpImageV() {
+        return pImageV;
+    }
+
+    public ImageView geteImageV() {
+        return eImageV;
+    }
+
+    public View.OnClickListener getLayoutClick() {
+        return layoutClick;
     }
 }
