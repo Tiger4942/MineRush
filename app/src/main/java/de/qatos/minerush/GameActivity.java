@@ -106,13 +106,23 @@ public class GameActivity extends Activity {
 
     public void onFinishTimer() {
         if(pIndex == eIndex) {
+
+            if(pIndex == 0)
+                mineRight();
+            else if(pIndex == 1)
+                lootRight();
+            else if(pIndex == 2)
+                fightRight();
+            else if(pIndex == 3)
+                gatherRight();
+
             test.setText("INDEX: " + pIndex + " RICHTIG!");
 
             Random nEnemy = new Random();
             eIndex = nEnemy.nextInt(4 - 0) + 0;
 
             switchEIndex();
-            countdownCurrent *= 0.8F;
+            countdownCurrent *= 0.9F;
             timer = new CountDownTimer(countdownCurrent, 1000) {
                 @Override
                 public void onTick(long millisUntilFinished) {
@@ -147,6 +157,22 @@ public class GameActivity extends Activity {
             timer.start();
 
         }
+
+    }
+
+    private void mineRight() {
+
+    }
+
+    private void lootRight() {
+
+    }
+
+    private void fightRight() {
+
+    }
+
+    private void gatherRight() {
 
     }
 
