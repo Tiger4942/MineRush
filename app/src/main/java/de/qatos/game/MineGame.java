@@ -47,6 +47,7 @@ public class MineGame {
 
                 if(ores == 0) {
                     finish();
+                    activity.getLayout().removeView(text);
                     activity.geteImageV().setAnimation(null);
                     activity.getLayout().setOnClickListener(activity.getLayoutClick());
                     activity.timerRight();

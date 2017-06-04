@@ -228,7 +228,7 @@ public class GameActivity extends Activity {
         test.setText("INDEX: " + pIndex + " RICHTIG!");
 
         Random nEnemy = new Random();
-        eIndex = nEnemy.nextInt(4 - 0) + 0;
+        eIndex = nEnemy.nextInt(4);
 
         switchEIndex();
         timer = new CountDownTimer(countdownCurrent, 1000) {
@@ -246,6 +246,9 @@ public class GameActivity extends Activity {
 
     private void timerFalse() {
         test.setText("INDEX: " + pIndex + " FALSCH!");
+
+        Random nEnemy = new Random();
+        eIndex = nEnemy.nextInt(4);
 
         switchEIndex();
         countdownCurrent = countdownInit;

@@ -6,8 +6,10 @@ import de.qatos.minerush.GameActivity;
 
 public class FightGame {
 
-    public FightGame(GameActivity activity) {
+    private GameActivity activity;
 
+    public FightGame(final GameActivity activity) {
+        this.activity = activity;
         activity.timerRight();
 
     }
