@@ -29,12 +29,17 @@ public class MineGame {
         text.setHeight(100);
         activity.getLayout().addView(text);
 
-        activity.mineRight(activity.getpImageV(), activity.geteImageV());
+        //activity.mineRight(activity.getpImageV(), activity.geteImageV());
+
+        setupGame();
+        setupAnimation();
 
         activity.getLayout().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                click();
+
+                activity.geteImageV().setAnimation(oreSet);
+                activity.geteImageV().startAnimation(oreSet);
                 ores--;
 
                 text.setText("Ores: " + ores);
@@ -43,7 +48,6 @@ public class MineGame {
                     activity.gameFinish();
                     activity.getLayout().removeView(text);
                     activity.geteImageV().setAnimation(null);
-                    activity.getLayout().setOnClickListener(activity.getLayoutClick());
                     activity.timerRight();
                 }
             }
@@ -51,8 +55,17 @@ public class MineGame {
 
     }
 
-    private void click() {
+    private void setupGame(){
+        activity.geteImageV().setVisibility(View.VISIBLE);
+        activity.geteImageV().setMinimumWidth(300);
+        activity.geteImageV().setMinimumHeight(300);
+        activity.geteImageV().setMaxWidth(300);
+        activity.geteImageV().setMaxHeight(300);
+        activity.geteImageV().setX(activity.WIDTH / 2 - 300 / 2);
+        activity.geteImageV().setY(activity.HEIGHT / 2 - 300 / 2);
+    }
 
+    private void setupAnimation(){
         oreLeft = new RotateAnimation(0f, 10.0f, RotateAnimation.RELATIVE_TO_SELF, 1.0f, RotateAnimation.RELATIVE_TO_SELF, 1.0f);
         oreLeft.setInterpolator(new LinearInterpolator());
         oreLeft.setRepeatCount(0);
@@ -79,10 +92,6 @@ public class MineGame {
         oreSet.addAnimation(oreRight);
         oreSet.addAnimation(oreCenter);
         oreSet.setDuration(300);
-
-        activity.geteImageV().setAnimation(oreSet);
-        activity.geteImageV().startAnimation(oreSet);
-
     }
 
 }

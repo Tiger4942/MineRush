@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.text.Layout;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -126,6 +127,7 @@ public class GameActivity extends Activity {
                 gatherRight();
 
             timer.cancel();
+            gameStart();
         }else{
             timerFalse();
         }
@@ -148,7 +150,7 @@ public class GameActivity extends Activity {
         gatherGame = new GatherGame(this);
     }
 
-    public void mineRight(ImageView pImage, ImageView eImage) {
+    /*public void mineRight(ImageView pImage, ImageView eImage) {
         pImage.setVisibility(View.INVISIBLE);
         eImage.setMinimumWidth(300);
         eImage.setMinimumHeight(300);
@@ -156,6 +158,28 @@ public class GameActivity extends Activity {
         eImage.setMaxHeight(300);
         eImage.setX(WIDTH / 2 - 300 / 2);
         eImage.setY(HEIGHT / 2 - 300 / 2);
+    }*/
+
+    public void gameStart(){
+        pImageV.setVisibility(View.INVISIBLE);
+        eImageV.setVisibility(View.INVISIBLE);
+        test.setVisibility(View.INVISIBLE);
+        time.setVisibility(View.INVISIBLE);
+    }
+
+    public void gameFinish() {
+        pImageV.setVisibility(View.VISIBLE);
+        eImageV.setVisibility(View.VISIBLE);
+        test.setVisibility(View.VISIBLE);
+        time.setVisibility(View.VISIBLE);
+        pImageV.setX(enemyImgX);
+        pImageV.setY(enemyImgY);
+        pImageV.setMinimumWidth(100);
+        pImageV.setMinimumHeight(100);
+        pImageV.setMaxWidth(100);
+        pImageV.setMaxHeight(100);
+
+        getLayout().setOnClickListener(layoutClick);
     }
 
     public void onTickTimer(long millisUntilFinished) {
@@ -264,16 +288,6 @@ public class GameActivity extends Activity {
         }.start();
     }
 
-    public void gameFinish() {
-        pImageV.setVisibility(View.VISIBLE);
-        pImageV.setX(enemyImgX);
-        pImageV.setY(enemyImgY);
-        pImageV.setMinimumWidth(100);
-        pImageV.setMinimumHeight(100);
-        pImageV.setMaxWidth(100);
-        pImageV.setMaxHeight(100);
-    }
-
     public RelativeLayout getLayout() {
         return layout;
     }
@@ -304,9 +318,5 @@ public class GameActivity extends Activity {
 
     public ImageView geteImageV() {
         return eImageV;
-    }
-
-    public View.OnClickListener getLayoutClick() {
-        return layoutClick;
     }
 }
