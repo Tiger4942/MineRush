@@ -6,9 +6,14 @@ import de.qatos.minerush.GameActivity;
 
 public class LootGame {
 
-    public LootGame(GameActivity activity) {
+    private GameActivity activity;
 
+    public LootGame(final GameActivity activity) {
+
+        this.activity = activity;
+        activity.gameFinish();
         activity.timerRight();
+
 
     }
 

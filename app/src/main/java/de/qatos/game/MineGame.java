@@ -1,5 +1,6 @@
 package de.qatos.game;
 
+import android.app.Activity;
 import android.view.View;
 import android.view.animation.AnimationSet;
 import android.view.animation.LinearInterpolator;
@@ -30,16 +31,14 @@ public class MineGame {
         activity.getLayout().addView(text);
 
         //activity.mineRight(activity.getpImageV(), activity.geteImageV());
-
         setupGame();
         setupAnimation();
 
         activity.getLayout().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                activity.geteImageV().setAnimation(oreSet);
                 activity.geteImageV().startAnimation(oreSet);
+
                 ores--;
 
                 text.setText("Ores: " + ores);
@@ -52,7 +51,6 @@ public class MineGame {
                 }
             }
         });
-
     }
 
     private void setupGame(){
@@ -63,6 +61,7 @@ public class MineGame {
         activity.geteImageV().setMaxHeight(300);
         activity.geteImageV().setX(activity.WIDTH / 2 - 300 / 2);
         activity.geteImageV().setY(activity.HEIGHT / 2 - 300 / 2);
+        activity.geteImageV().setVisibility(View.VISIBLE);
     }
 
     private void setupAnimation(){

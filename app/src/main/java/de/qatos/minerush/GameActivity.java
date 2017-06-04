@@ -37,8 +37,8 @@ public class GameActivity extends Activity {
     private ImageView pImageV;
     private ImageView eImageV;
 
-    private long countdownInit = 10000;
-    private long countdownCurrent = 10000;
+    private long countdownInit = 5000;
+    private long countdownCurrent = 5000;
 
     private MineGame mineGame;
     private LootGame lootGame;
@@ -101,7 +101,7 @@ public class GameActivity extends Activity {
 
         switchEIndex();
 
-        timer = new CountDownTimer(10000, 1000) {
+        timer = new CountDownTimer(countdownInit, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 onTickTimer(millisUntilFinished);
@@ -114,20 +114,23 @@ public class GameActivity extends Activity {
         }.start();
     }
 
+    public void setEnemyVisible(){
+        eImageV.setVisibility(View.VISIBLE);
+    }
+
     public void onFinishTimer() {
         if(pIndex == eIndex) {
-
-            if(pIndex == 0)
-                mineRight();
-            else if(pIndex == 1)
-                lootRight();
-            else if(pIndex == 2)
-                fightRight();
-            else if(pIndex == 3)
-                gatherRight();
-
-            timer.cancel();
             gameStart();
+            timer.cancel();
+            if(pIndex == 0) {
+                mineRight();
+            }else if(pIndex == 1) {
+                lootRight();
+            }else if(pIndex == 2) {
+                fightRight();
+            }else if(pIndex == 3){
+                gatherRight();
+            }
         }else{
             timerFalse();
         }

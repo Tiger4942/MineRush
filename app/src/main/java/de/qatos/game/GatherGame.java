@@ -6,9 +6,14 @@ import de.qatos.minerush.GameActivity;
 
 public class GatherGame {
 
-    public GatherGame(GameActivity activity) {
+    private GameActivity activity;
 
+    public GatherGame(final GameActivity activity) {
+
+        this.activity = activity;
+        activity.gameFinish();
         activity.timerRight();
+
 
     }
 
