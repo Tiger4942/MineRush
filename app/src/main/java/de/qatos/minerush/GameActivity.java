@@ -149,6 +149,16 @@ public class GameActivity extends Activity {
         gatherGame = new GatherGame(this);
     }
 
+    public void mineRight(ImageView pImage, ImageView eImage) {
+        pImage.setVisibility(View.INVISIBLE);
+        eImage.setMinimumWidth(300);
+        eImage.setMinimumHeight(300);
+        eImage.setMaxWidth(300);
+        eImage.setMaxHeight(300);
+        eImage.setX(WIDTH / 2 - 300 / 2);
+        eImage.setY(HEIGHT / 2 - 300 / 2);
+    }
+
     public void onTickTimer(long millisUntilFinished) {
         time.setText("Remaining: " + millisUntilFinished / 1000);
 
@@ -268,12 +278,12 @@ public class GameActivity extends Activity {
         return timer;
     }
 
-    public int getPlayerImgX() {
-        return playerImgX;
+    public int getEnemyImgX() {
+        return enemyImgX;
     }
 
-    public int getPlayerImgY() {
-        return playerImgY;
+    public int getEnemyImgY() {
+        return enemyImgY;
     }
 
     public ImageView getpImageV() {
