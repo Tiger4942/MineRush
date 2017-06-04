@@ -172,12 +172,12 @@ public class GameActivity extends Activity {
         eImageV.setVisibility(View.VISIBLE);
         test.setVisibility(View.VISIBLE);
         time.setVisibility(View.VISIBLE);
-        pImageV.setX(enemyImgX);
-        pImageV.setY(enemyImgY);
-        pImageV.setMinimumWidth(100);
-        pImageV.setMinimumHeight(100);
-        pImageV.setMaxWidth(100);
-        pImageV.setMaxHeight(100);
+        eImageV.setX(enemyImgX);
+        eImageV.setY(enemyImgY);
+        eImageV.setMinimumWidth(100);
+        eImageV.setMinimumHeight(100);
+        eImageV.setMaxWidth(100);
+        eImageV.setMaxHeight(100);
 
         getLayout().setOnClickListener(layoutClick);
     }
