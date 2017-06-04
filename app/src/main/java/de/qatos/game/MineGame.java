@@ -68,32 +68,32 @@ public class MineGame {
 
     private void click() {
 
-        oreLeft = new RotateAnimation(0f, -10.0f, RotateAnimation.RELATIVE_TO_SELF, 1.0f, RotateAnimation.RELATIVE_TO_SELF, 1.0f);
+        oreLeft = new RotateAnimation(0f, 10.0f, RotateAnimation.RELATIVE_TO_SELF, 1.0f, RotateAnimation.RELATIVE_TO_SELF, 1.0f);
         oreLeft.setInterpolator(new LinearInterpolator());
         oreLeft.setRepeatCount(0);
         oreLeft.setDuration(100);
         oreLeft.setFillAfter(true);
 
-        oreRight = new RotateAnimation(-10.0f, 10.0f, RotateAnimation.RELATIVE_TO_SELF, 1.0f, RotateAnimation.RELATIVE_TO_SELF, 1.0f);
+        oreRight = new RotateAnimation(10.0f, -10.0f, RotateAnimation.RELATIVE_TO_SELF, 1.0f, RotateAnimation.RELATIVE_TO_SELF, 1.0f);
         oreRight.setInterpolator(new LinearInterpolator());
         oreRight.setRepeatCount(0);
+        oreRight.setStartOffset(100);
         oreRight.setDuration(100);
         oreRight.setFillAfter(true);
 
-        oreCenter = new RotateAnimation(10.0f, 0.0f, RotateAnimation.RELATIVE_TO_SELF, 1.0f, RotateAnimation.RELATIVE_TO_SELF, 1.0f);
+        oreCenter = new RotateAnimation(-10.0f, 0.0f, RotateAnimation.RELATIVE_TO_SELF, 1.0f, RotateAnimation.RELATIVE_TO_SELF, 1.0f);
         oreCenter.setInterpolator(new LinearInterpolator());
         oreCenter.setRepeatCount(0);
+        oreCenter.setStartOffset(200);
         oreCenter.setDuration(100);
         oreCenter.setFillAfter(true);
 
         oreSet = new AnimationSet(true);
-        oreSet.setInterpolator(new DecelerateInterpolator());
-        oreSet.setFillAfter(true);
-        oreSet.setFillEnabled(true);
 
         oreSet.addAnimation(oreLeft);
         oreSet.addAnimation(oreRight);
         oreSet.addAnimation(oreCenter);
+        oreSet.setDuration(300);
 
         activity.geteImageV().setAnimation(oreSet);
         activity.geteImageV().startAnimation(oreSet);
