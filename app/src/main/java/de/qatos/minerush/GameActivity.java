@@ -28,7 +28,7 @@ public class GameActivity extends Activity {
     private int enemyImgY, enemyImgX;
 
     private int pIndex; // Player Index
-    private int eIndex; // Enemy Index
+    private int eIndex = 2; // Enemy Index
 
     private CountDownTimer timer;
     private TextView time, test;
@@ -81,7 +81,7 @@ public class GameActivity extends Activity {
         imageLoad();
 
         Random player = new Random(); // Player Index Random
-        pIndex = player.nextInt(4 - 0) + 0;
+        pIndex = player.nextInt(4);
 
         switchPIndex();
 
