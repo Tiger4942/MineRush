@@ -1,7 +1,6 @@
 package de.qatos.minerush;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -263,6 +262,16 @@ public class GameActivity extends Activity {
                 onFinishTimer();
             }
         }.start();
+    }
+
+    public void gameFinish() {
+        pImageV.setVisibility(View.VISIBLE);
+        pImageV.setX(enemyImgX);
+        pImageV.setY(enemyImgY);
+        pImageV.setMinimumWidth(100);
+        pImageV.setMinimumHeight(100);
+        pImageV.setMaxWidth(100);
+        pImageV.setMaxHeight(100);
     }
 
     public RelativeLayout getLayout() {

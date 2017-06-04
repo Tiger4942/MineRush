@@ -1,18 +1,12 @@
 package de.qatos.game;
 
-import android.content.Context;
 import android.view.View;
-import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
-import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import de.qatos.minerush.GameActivity;
-import de.qatos.minerush.R;
 
 public class MineGame {
 
@@ -46,7 +40,7 @@ public class MineGame {
                 text.setText("Ores: " + ores);
 
                 if(ores == 0) {
-                    finish();
+                    activity.gameFinish();
                     activity.getLayout().removeView(text);
                     activity.geteImageV().setAnimation(null);
                     activity.getLayout().setOnClickListener(activity.getLayoutClick());
@@ -55,16 +49,6 @@ public class MineGame {
             }
         });
 
-    }
-
-    private void finish() {
-        activity.getpImageV().setVisibility(View.VISIBLE);
-        activity.geteImageV().setX(activity.getEnemyImgX());
-        activity.geteImageV().setY(activity.getEnemyImgY());
-        activity.geteImageV().setMinimumWidth(100);
-        activity.geteImageV().setMinimumHeight(100);
-        activity.geteImageV().setMaxWidth(100);
-        activity.geteImageV().setMaxHeight(100);
     }
 
     private void click() {
