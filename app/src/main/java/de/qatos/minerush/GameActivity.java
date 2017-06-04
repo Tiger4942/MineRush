@@ -28,7 +28,7 @@ public class GameActivity extends Activity {
     private int enemyImgY, enemyImgX;
 
     private int pIndex; // Player Index
-    private int eIndex = 2; // Enemy Index
+    private int eIndex = 1; // Enemy Index
 
     private CountDownTimer timer;
     private TextView time, test;
@@ -177,6 +177,8 @@ public class GameActivity extends Activity {
         time.setVisibility(View.VISIBLE);
         eImageV.setX(enemyImgX);
         eImageV.setY(enemyImgY);
+        pImageV.setX(playerImgX);
+        pImageV.setY(playerImgY);
         eImageV.setMinimumWidth(100);
         eImageV.setMinimumHeight(100);
         eImageV.setMaxWidth(100);
@@ -196,11 +198,20 @@ public class GameActivity extends Activity {
         pImageV.setImageResource(R.drawable.mine);
         pImageV.setX(playerImgX);
         pImageV.setY(playerImgY);
+        pImageV.setMinimumWidth(100);
+        pImageV.setMinimumHeight(100);
+        pImageV.setMaxWidth(100);
+        pImageV.setMaxHeight(100);
 
         eImageV = new ImageView(this);
         eImageV.setImageResource(R.drawable.ore);
         eImageV.setX(enemyImgX);
         eImageV.setY(enemyImgY);
+        eImageV.setMinimumWidth(100);
+        eImageV.setMinimumHeight(100);
+        eImageV.setMaxWidth(100);
+        eImageV.setMaxHeight(100);
+
 
         layout.addView(pImageV);
         layout.addView(eImageV);
@@ -321,5 +332,13 @@ public class GameActivity extends Activity {
 
     public ImageView geteImageV() {
         return eImageV;
+    }
+
+    public int getPlayerImgX() {
+        return playerImgX;
+    }
+
+    public int getPlayerImgY() {
+        return playerImgY;
     }
 }
