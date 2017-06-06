@@ -5,9 +5,11 @@ import android.view.View;
 import android.view.animation.AnimationSet;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import de.qatos.minerush.GameActivity;
+import de.qatos.minerush.R;
 
 public class MineGame {
 
@@ -19,6 +21,8 @@ public class MineGame {
     private RotateAnimation oreLeft, oreRight, oreCenter;
     private AnimationSet oreSet;
 
+    private ImageView imgPickaxe;
+
     public MineGame(final GameActivity activity) {
         this.activity = activity;
 
@@ -28,22 +32,42 @@ public class MineGame {
         text.setY(0);
         text.setWidth(100);
         text.setHeight(100);
-        activity.getLayout().addView(text);
 
-        //activity.mineRight(activity.getpImageV(), activity.geteImageV());
+        imgPickaxe = new ImageView(activity);
+        imgPickaxe.setX(200);
+        imgPickaxe.setY(200);
+        imgPickaxe.setMinimumHeight(100);
+        imgPickaxe.setMaxHeight(100);
+        imgPickaxe.setMinimumWidth(100);
+        imgPickaxe.setMaxWidth(100);
+
+        imgPickaxe.setImageResource(R.drawable.mine);
+        imgPickaxe.setVisibility(View.INVISIBLE);
+        activity.getLayout().addView(text);
+        activity.getLayout().addView(imgPickaxe);
+
         setupGame();
         setupAnimation();
 
         activity.getLayout().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                oreSet.setDuration(300);
                 activity.geteImageV().startAnimation(oreSet);
+                imgPickaxe.setVisibility(View.VISIBLE);
+                oreSet.setDuration(50);
+                imgPickaxe.startAnimation(oreSet);
+
+                imgPickaxe.setVisibility(View.INVISIBLE);
 
                 ores--;
 
                 text.setText("Ores: " + ores);
 
                 if(ores == 0) {
+                    imgPickaxe.setAnimation(null);
+                    activity.getLayout().removeView(imgPickaxe);
+
                     activity.gameFinish();
                     activity.getLayout().removeView(text);
                     activity.geteImageV().setAnimation(null);
